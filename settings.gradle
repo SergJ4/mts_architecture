@@ -1,0 +1,2 @@
+include ':app', ':core', ':features:display-text', ':features:text-repository'
+rootProject.name='architecture'

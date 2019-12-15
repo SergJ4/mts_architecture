@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply from: 'https://raw.githubusercontent.com/JakeWharton/SdkSearch/master/gradle/projectDependencyGraph.gradle'
+
+android {
+    defaultConfig {
+        applicationId "ru.mts.architecture"
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":core")
+    implementation project(":features:display-text")
+
+    implementation Deps.kotlin_stdlib
+    implementation Deps.androidx_appcompat
+    implementation Deps.androidx_core
+    implementation Deps.androidx_lifecycle
+
+    implementation Deps.dagger_lib
+    kapt Deps.dagger_compiler
+
+    implementation Deps.cicerone
+    implementation Deps.rx_java
+    implementation Deps.rx_android
+}
