@@ -5,11 +5,12 @@ import ru.mts.display_text.presentation.DisplayTextFragment
 
 internal class DisplayTextFeatureApi(
     dependencies: DisplayTextFeature.Dependencies,
-    injectorTag: Int
+    private val featureTag: String
 ) : DisplayTextFeature.Api {
 
-    override val fragment: Fragment = DisplayTextFragment()
-        .apply {
-            tag = injectorTag
-        }
+    override val fragment: Fragment
+        get() = DisplayTextFragment()
+            .apply {
+                featureTag = this@DisplayTextFeatureApi.featureTag
+            }
 }

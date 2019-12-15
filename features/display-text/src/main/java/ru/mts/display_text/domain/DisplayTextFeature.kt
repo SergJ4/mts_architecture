@@ -12,12 +12,16 @@ import ru.mts.text_repository.ITextRepository
 class DisplayTextFeature(
     override val dependencies: Dependencies,
     override val output: Output
-) : Feature<DisplayTextFeature.Dependencies, DisplayTextFeature.Output, DisplayTextFeature.Api> {
+) : Feature<DisplayTextFeature.Dependencies, DisplayTextFeature.Output, DisplayTextFeature.Api>() {
+
+    override val featureTag: String =
+        javaClass.canonicalName ?: "DisplayTextFeature" + FeatureManager.getTag()
 
     private val injector = object : Injector<DisplayTextFragment>(DisplayTextFragment::class.java) {
         private val daggerComponent = DaggerDisplayTextComponent
             .builder()
             .dependencies(dependencies)
+            .output(output)
             .build()
 
         override fun inject(objectToInject: DisplayTextFragment) {
@@ -25,14 +29,27 @@ class DisplayTextFeature(
         }
     }
 
+    override val api: Api = DisplayTextFeatureApi(dependencies, featureTag)
+
     init {
-        val registeredTag = FeatureManager.registerInjector(injector)
+        FeatureManager.register(this)
     }
 
-    override val api: Api = DisplayTextFeatureApi(dependencies)
+    override fun getInjectorFor(objectToInjectInto: Any): Injector<*> {
+        if (objectToInjectInto !is DisplayTextFragment)
+            throw IllegalArgumentException("Can not inject into $objectToInjectInto")
+
+        return injector
+    }
+
+    override fun destroy(destroyedObject: Any) {
+        if (destroyedObject is DisplayTextFragment) {
+            FeatureManager.remove(this)
+        }
+    }
 
     interface Dependencies : IFeature.Dependencies {
-        val textRepository: ITextRepository
+        fun textRepository(): ITextRepository
     }
 
     interface Output : IFeature.Output {

@@ -6,7 +6,7 @@ import ru.mts.core.di.FeatureScope
 import ru.mts.display_text.domain.DisplayTextFeature
 import ru.mts.display_text.presentation.DisplayTextViewModel
 import ru.mts.display_text.presentation.IDisplayTextViewModel
-import ru.mts.text_repository.TextRepository
+import ru.mts.text_repository.ITextRepository
 
 @Module
 internal class DisplayTextModule {
@@ -14,7 +14,7 @@ internal class DisplayTextModule {
     @Provides
     @FeatureScope
     internal fun provideViewModel(
-        textRepository: TextRepository,
+        textRepository: ITextRepository,
         output: DisplayTextFeature.Output
     ): IDisplayTextViewModel = DisplayTextViewModel(textRepository, output)
 }

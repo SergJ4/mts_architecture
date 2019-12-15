@@ -1,5 +1,7 @@
 package ru.mts.core
 
+import ru.mts.core.di.Injector
+
 /**
  * Abstract feature.
  *
@@ -12,11 +14,36 @@ package ru.mts.core
  * @property api is everything that feature could provide for its users (developers that use this feature)
  * For example it can provide Fragment, Repository or some Analytics service
  */
-interface Feature<DEPENDENCIES, OUTPUT, API> {
+abstract class Feature<DEPENDENCIES, OUTPUT, API> {
 
-    val dependencies: DEPENDENCIES
+    abstract val featureTag: String
 
-    val output: OUTPUT
+    abstract val dependencies: DEPENDENCIES
 
-    val api: API
+    abstract val output: OUTPUT
+
+    abstract val api: API
+
+    abstract fun getInjectorFor(objectToInjectInto: Any): Injector<*>
+
+    abstract fun destroy(destroyedObject: Any)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Feature<*, *, *>
+
+        if (featureTag != other.featureTag) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return featureTag.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Feature(featureTag='$featureTag')"
+    }
 }

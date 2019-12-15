@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.mts.core.FeatureManager
-import ru.mts.core.di.TagHolder
 import javax.inject.Inject
 
-abstract class BaseFragment<VM : IBaseViewModel> : Fragment(), TagHolder {
-    override var tag: Int by FragmentTagHolder()
+abstract class BaseFragment<VM : IBaseViewModel> : Fragment() {
+
+    var featureTag: String by FragmentTagHolder()
 
     abstract val layout: Int
 
