@@ -17,6 +17,10 @@ internal class DisplayTextViewModel(
             .toLiveData()
     }
 
+    override fun textClicked() {
+        output.goToNextScreen()
+    }
+
     override fun initializeViewModel() {
     }
 }

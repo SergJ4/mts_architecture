@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import ru.mts.core.base.IBaseViewModel
 
 interface IDisplayTextViewModel : IBaseViewModel {
+    fun textClicked()
 
     val textToDisplay: LiveData<String>
 }

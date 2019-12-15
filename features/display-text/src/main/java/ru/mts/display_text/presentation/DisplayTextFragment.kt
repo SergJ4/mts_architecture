@@ -11,6 +11,9 @@ class DisplayTextFragment : BaseFragment<IDisplayTextViewModel>() {
         get() = R.layout.display_text_layout
 
     override fun subscribeToViewModel() {
+        textView.setOnClickListener {
+            viewModel.textClicked()
+        }
         viewModel
             .textToDisplay
             .observe(viewLifecycleOwner, Observer {

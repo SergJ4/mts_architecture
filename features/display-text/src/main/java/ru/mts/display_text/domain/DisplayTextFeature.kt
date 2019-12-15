@@ -29,7 +29,7 @@ class DisplayTextFeature(
         }
     }
 
-    override val api: Api = DisplayTextFeatureApi(dependencies, featureTag)
+    override val api: Api = DisplayTextFeatureApi(featureTag)
 
     init {
         FeatureManager.register(this)

@@ -1,2 +1,6 @@
-include ':app', ':core', ':features:display-text', ':features:text-repository'
+include ':app'
+include ':core'
+include ':features:display-text'
+include ':features:text-repository'
+include ':features:edit-text'
 rootProject.name='architecture'

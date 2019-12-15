@@ -8,9 +8,11 @@ import dagger.Provides
 import ru.mts.architecture.MainActivity
 import ru.mts.architecture.MainActivityViewModel
 import ru.mts.architecture.navigation.DisplayTextFeatureRouter
+import ru.mts.architecture.navigation.EditTextRouter
 import ru.mts.architecture.navigation.MainActivityRouter
 import ru.mts.core.di.ActivityScope
 import ru.mts.display_text.domain.DisplayTextFeature
+import ru.mts.edit_text.domain.EditTextFeature
 import ru.mts.text_repository.ITextRepository
 import ru.terrakok.cicerone.Router
 import javax.inject.Provider
@@ -30,6 +32,17 @@ class MainActivityModule {
     )
 
     @Provides
+    fun provideEditTextFeature(
+        textRepository: ITextRepository,
+        editTextFeatureOutput: EditTextRouter
+    ): EditTextFeature = EditTextFeature(
+        object : EditTextFeature.Dependencies {
+            override fun textRepository(): ITextRepository = textRepository
+        },
+        editTextFeatureOutput
+    )
+
+    @Provides
     @ActivityScope
     fun provideRouter(
         featureProvider: Provider<DisplayTextFeature>,
@@ -38,8 +51,14 @@ class MainActivityModule {
 
     @Provides
     @ActivityScope
-    fun provideDisplayTextFeatureRouter(router: Router): DisplayTextFeatureRouter =
-        DisplayTextFeatureRouter(router)
+    fun provideDisplayTextFeatureRouter(
+        router: Router,
+        provider: Provider<EditTextFeature>
+    ): DisplayTextFeatureRouter = DisplayTextFeatureRouter(router, provider)
+
+    @Provides
+    @ActivityScope
+    fun provideEditTextFeatureRouter(router: Router): EditTextRouter = EditTextRouter(router)
 
     @Provides
     @ActivityScope

@@ -23,6 +23,7 @@ dependencies {
 
     implementation project(":core")
     implementation project(":features:display-text")
+    implementation project(":features:edit-text")
     implementation project(":features:text-repository")
 
     implementation Deps.kotlin_stdlib
