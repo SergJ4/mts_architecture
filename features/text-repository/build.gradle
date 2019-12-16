@@ -1,7 +1,11 @@
-apply plugin: 'kotlin'
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":core")
+
     implementation Deps.kotlin_stdlib
     implementation Deps.rx_java
 }

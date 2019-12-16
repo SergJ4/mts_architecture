@@ -16,7 +16,8 @@ import ru.mts.core.di.Injector
  */
 abstract class Feature<DEPENDENCIES, OUTPUT, API> {
 
-    abstract val featureTag: String
+    val featureTag: String =
+        this.javaClass.canonicalName ?: "StrangeFeature" + FeatureManager.getTag()
 
     abstract val dependencies: DEPENDENCIES
 
@@ -24,7 +25,7 @@ abstract class Feature<DEPENDENCIES, OUTPUT, API> {
 
     abstract val api: API
 
-    abstract fun getInjectorFor(objectToInjectInto: Any): Injector<*>
+    abstract fun getInjectorFor(objectToInjectInto: Any): Injector<*>?
 
     abstract fun destroy(destroyedObject: Any)
 

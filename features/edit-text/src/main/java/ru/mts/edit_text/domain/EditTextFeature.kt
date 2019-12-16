@@ -14,9 +14,6 @@ class EditTextFeature(
     override val output: Output
 ) : Feature<EditTextFeature.Dependencies, EditTextFeature.Output, EditTextFeature.Api>() {
 
-    override val featureTag: String =
-        javaClass.canonicalName ?: "EditTextFeature" + FeatureManager.getTag()
-
     override val api: Api = EditTextFeatureApi(featureTag)
 
     private val injector: Injector<EditTextFragment> = object : Injector<EditTextFragment>(

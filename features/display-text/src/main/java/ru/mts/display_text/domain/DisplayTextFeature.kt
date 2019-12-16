@@ -14,9 +14,6 @@ class DisplayTextFeature(
     override val output: Output
 ) : Feature<DisplayTextFeature.Dependencies, DisplayTextFeature.Output, DisplayTextFeature.Api>() {
 
-    override val featureTag: String =
-        javaClass.canonicalName ?: "DisplayTextFeature" + FeatureManager.getTag()
-
     private val injector = object : Injector<DisplayTextFragment>(DisplayTextFragment::class.java) {
         private val daggerComponent = DaggerDisplayTextComponent
             .builder()

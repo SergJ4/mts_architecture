@@ -3,7 +3,7 @@ package ru.mts.architecture.di
 import dagger.Module
 import dagger.Provides
 import ru.mts.text_repository.ITextRepository
-import ru.mts.text_repository.TextRepository
+import ru.mts.text_repository.domain.TextRepositoryFeature
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -14,7 +14,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideTextRepository(): ITextRepository = TextRepository()
+    fun provideTextRepository(): ITextRepository = TextRepositoryFeature().api.textRepository()
 
     @Provides
     @Singleton
